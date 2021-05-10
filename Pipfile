@@ -9,6 +9,7 @@ uvicorn = "*"
 sqlalchemy = "*"
 passlib = "*"
 bcrypt = "*"
+python-jose = "*"
 
 [dev-packages]
 
