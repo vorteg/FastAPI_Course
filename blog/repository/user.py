@@ -26,10 +26,17 @@ def get_user(id: int, db: Session):
     return user
 
 
-def user_by_email(email: str, request: schemas.Login, db: Session):
+def user_by_email(email:str, db: Session):
     user = db.query(models.User).filter(models.User.email == email).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'User with the  {email} is not available')
+    return user
+
+
+def user_by_username(request: schemas.Login, db: Session):
+    user = db.query(models.User).filter(models.User.email == request.username).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'User with the  {request.username} is not available')
     if not Hash.verify(request.password, user.password):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Incorrect Password')
     return user

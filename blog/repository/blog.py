@@ -18,8 +18,8 @@ def show(id:int,  db:Session):
         # return{'detail':f'Blog with the id {id} is not available'}
     return blog
 
-def create(request: schemas.Blog, db:Session):
-    new_blog = models.Blog(title=request.title, body=request.body, user_id=1)
+def create(request: schemas.Blog, db:Session, id:int):
+    new_blog = models.Blog(title=request.title, body=request.body, user_id=id)
     db.add(new_blog)
     db.commit()
     db.refresh(new_blog)
